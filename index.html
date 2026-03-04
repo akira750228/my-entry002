@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yamada Taro | Web Designer Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==========================================
+           CSS Variables (Color Scheme & Theme)
+           ========================================== */
+        :root {
+            /* Light Theme (Default) */
+            --bg-color: #ECF0F1; /* ライトグレー */
+            --text-color: #333333;
+            --text-muted: #666666;
+            --main-color: #2C3E50; /* ダークブルー */
+            --accent-color: #E74C3C; /* レッド */
+            --accent-hover: #c0392b;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --border-color: #dddddd;
+            
+            /* Typography */
+            --font-main: 'Noto Sans JP', sans-serif;
+            --font-en: 'Poppins', sans-serif;
+        }
+
+        /* Dark Theme Variables */
+        body.dark-mode {
+            --bg-color: #1a1a24;
+            --text-color: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --main-color: #ECF0F1; 
+            --accent-color: #E74C3C;
+            --card-bg: #2C3E50; 
+            --header-bg: rgba(26, 26, 36, 0.95);
+            --border-color: #3f546a;
+        }
+
+        /* ==========================================
+           Reset & Base Styles
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Layout Utility */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: var(--font-en);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--main-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+            color: #fff;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--main-color);
+            border: 2px solid var(--main-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--main-color);
+            color: var(--bg-color);
+        }
+        
+        body.dark-mode .btn-outline {
+            border-color: var(--bg-color);
+            color: var(--bg-color);
+        }
+        body.dark-mode .btn-outline:hover {
+            background-color: var(--bg-color);
+            color: #1a1a24;
+        }
+
+        /* ==========================================
+           Header & Navigation
+           ========================================== */
+        header.navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: var(--font-en);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--main-color);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        /* ==========================================
+           Hero Section
+           ========================================== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), 
+                        url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: var(--font-en);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+        }
+
+        .hero-title span {
+            color: var(--accent-color);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* ==========================================
+           About Section
+           ========================================== */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 装飾用の円 */
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: calc(50% - 165px);
+            width: 330px;
+            height: 330px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            z-index: 1;
+            opacity: 0.2;
+        }
+
+        .about-text {
+            flex: 1.5;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .about-text .greeting {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--main-color);
+            margin-bottom: 15px;
+        }
+
+        /* ==========================================
+           Skills Section
+           ========================================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--main-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3 i {
+            color: var(--accent-color);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            width: 0; 
+            transition: width 1.5s cubic-bezier(0.1, 0.5, 0.1, 1);
+        }
+
+        /* ==========================================
+           Works Section (Portfolio)
+           ========================================== */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .work-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .work-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-image {
+            transform: scale(1.05);
+        }
+        
+        .work-image-wrapper {
+            overflow: hidden;
+        }
+
+        .work-info {
+            padding: 25px;
+        }
+
+        .work-category {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .work-title {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: var(--main-color);
+        }
+
+        .work-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .work-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--main-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .work-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* ==========================================
+           Contact Section
+           ========================================== */
+        #contact {
+            background-color: var(--card-bg);
+            padding: 100px 0;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-wrapper {
+            display: flex;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--main-color);
+        }
+
+        .form-control {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        /* フォーム送信後のメッセージスタイル */
+        .form-message {
+            display: none;
+            padding: 15px;
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* ==========================================
+           Footer
+           ========================================== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--main-color);
+            color: #fff;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ==========================================
+           Animations
+           ========================================== */
+        /* JSが有効な場合のみ初期状態で透明にする（フェイルセーフ） */
+        .js-enabled .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .js-enabled .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================
+           Responsive Design
+           ========================================== */
+        @media screen and (max-width: 900px) {
+            .about-content,
+            .contact-wrapper {
+                flex-direction: column;
+            }
+
+            .about-image img {
+                width: 250px;
+                height: 250px;
+            }
+            .about-image::before {
+                width: 280px;
+                height: 280px;
+                left: calc(50% - 140px);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 20px;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <a href="#" class="logo">Yamada <span>Taro</span></a>
+        
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#works">Works</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="テーマ切り替え">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </li>
+        </ul>
+
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content fade-up">
+            <h1 class="hero-title">Color Logic,<br><span>Design Magic.</span></h1>
+            <p class="hero-subtitle">
+                色彩検定1級の知識と確かなコーディング技術で企業の想いを「伝わる」形に。<br>
+                CVR向上に貢献するWebデザインを提供します。
+            </p>
+            <div class="hero-buttons">
+                <a href="#works" class="btn btn-primary">実績を見る</a>
+                <a href="#contact" class="btn btn-outline" style="color:#fff; border-color:#fff;">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+        <h2 class="section-title fade-up">Who I am</h2>
+        <div class="about-content fade-up">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=80" alt="山田太郎 プロフィール画像" onerror="this.onerror=null; this.src='https://placehold.co/500x500/2C3E50/FFFFFF?text=Profile+Image';">
+            </div>
+            <div class="about-text">
+                <p class="greeting">はじめまして、Webデザイナーの山田太郎です。</p>
+                <p>都内のWeb制作会社で3年間、企業のコーポレートサイトや商品のランディングページ制作に携わってきました。現在はフリーランスのWebデザイナー・フロントエンドエンジニアとして活動しています。</p>
+                <p>「見た目の美しさ」だけでなく、ユーザー心理に基づいた色彩設計（Color Logic）と、使いやすさを追求したUI設計を得意としています。クライアントの課題解決に直結する、成果の出るデザインをご提案します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="container">
+        <h2 class="section-title fade-up">Skills</h2>
+        <div class="skills-grid fade-up">
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-pen-nib"></i> Design</h3>
+                <div class="skill-list">
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Figma / Adobe XD</span> <span>95%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Illustrator</span> <span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Photoshop</span> <span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Coding</h3>
+                <div class="skill-list">
+                    <div class="skill-item">
+                        <div class="skill-name"><span>HTML5 / CSS3</span> <span>95%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>JavaScript</span> <span>80%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>WordPress</span> <span>75%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="75%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3><i class="fas fa-lightbulb"></i> Others</h3>
+                <div class="skill-list">
+                    <div class="skill-item">
+                        <div class="skill-name"><span>色彩設計 (色彩検定1級)</span> <span>100%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="100%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>UI/UX Design</span> <span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>SEO Basic</span> <span>70%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="70%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works" class="container">
+        <h2 class="section-title fade-up">Works</h2>
+        <div class="works-grid fade-up">
+            
+            <div class="work-card">
+                <div class="work-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="コーポレートサイト制作" class="work-image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2C3E50/FFFFFF?text=Corporate+Site';">
+                </div>
+                <div class="work-info">
+                    <span class="work-category">Corporate Site</span>
+                    <h3 class="work-title">株式会社〇〇様 コーポレートサイト</h3>
+                    <p class="work-desc">信頼感と先進性をテーマに、企業のブランドイメージを向上させるフルリニューアルを担当しました。</p>
+                    <a href="#" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=600&q=80" alt="LP制作" class="work-image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2C3E50/FFFFFF?text=Landing+Page';">
+                </div>
+                <div class="work-info">
+                    <span class="work-category">Landing Page</span>
+                    <h3 class="work-title">新規SaaSサービス紹介LP</h3>
+                    <p class="work-desc">コンバージョン率(CVR)を意識した導線設計と、アクセントカラーを活用した視線誘導を実装しました。</p>
+                    <a href="#" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=600&q=80" alt="ECサイトデザイン" class="work-image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2C3E50/FFFFFF?text=EC+Site';">
+                </div>
+                <div class="work-info">
+                    <span class="work-category">EC Site</span>
+                    <h3 class="work-title">アパレルブランド ECサイト</h3>
+                    <p class="work-desc">商品の魅力を引き立てるミニマルなデザインと、スマートフォンでの購買体験を最適化したUIを構築。</p>
+                    <a href="#" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title fade-up">Get in touch</h2>
+            <div class="contact-wrapper fade-up">
+                
+                <div class="contact-info">
+                    <p>制作のご依頼、お見積もり、その他ご相談は、右記フォームよりお気軽にお問い合わせください。<br>2営業日以内に返信いたします。</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-icon" aria-label="X (Twitter) 日々のデザイン発信">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">お名前</label>
+                        <input type="text" id="name" class="form-control" placeholder="山田 太郎" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">お問い合わせ内容</label>
+                        <textarea id="message" class="form-control" placeholder="ご相談内容をご記入ください..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 10px;">送信する</button>
+                    <!-- 送信後のメッセージ表示領域 -->
+                    <div id="formMessage" class="form-message">
+                        <i class="fas fa-info-circle"></i> デモ環境のため、実際の送信は行われません。
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="year"></span> Yamada Taro. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // JSが正常に動作し始めたら、アニメーション用のクラスを付与
+            document.body.classList.add('js-enabled');
+            
+            // 現在の年をフッターに自動設定
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            /* ==========================================
+               Dark Mode Toggle (エラー回避のtry-catch追加)
+               ========================================== */
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const icon = themeToggleBtn.querySelector('i');
+            const body = document.body;
+            
+            let currentTheme = 'light';
+            try {
+                // セキュリティ制限のある環境(iframe等)でエラーにならないよう保護
+                currentTheme = localStorage.getItem('theme');
+            } catch (e) {
+                console.warn('localStorageへのアクセスが制限されています:', e);
+            }
+
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                
+                if (isDark) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+
+                try {
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                } catch (e) {
+                    // エラーは無視
+                }
+            });
+
+            /* ==========================================
+               Mobile Hamburger Menu
+               ========================================== */
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links li a');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isOpened = navLinks.classList.contains('active');
+                hamburger.innerHTML = isOpened ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if(navLinks.classList.contains('active')){
+                        navLinks.classList.remove('active');
+                        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+
+            /* ==========================================
+               Contact Form Submission (Alert排除)
+               ========================================== */
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // 実際の送信をブロック
+                    formMessage.style.display = 'block'; // メッセージを表示
+                    
+                    // 3秒後にメッセージを消す
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 4000);
+                });
+            }
+
+            /* ==========================================
+               Scroll Animation (Intersection Observer)
+               ========================================== */
+            const fadeUpElements = document.querySelectorAll('.fade-up');
+            
+            // ヒーローセクション（一番上）はすぐに表示させる
+            const heroContent = document.querySelector('.hero-content.fade-up');
+            if (heroContent) {
+                setTimeout(() => {
+                    heroContent.classList.add('visible');
+                }, 100);
+            }
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Skillsセクションのプログレスバーアニメーション
+                        if (entry.target.classList.contains('skills-grid')) {
+                            const progressBars = entry.target.querySelectorAll('.skill-progress');
+                            progressBars.forEach(bar => {
+                                const width = bar.getAttribute('data-width');
+                                bar.style.width = width;
+                            });
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            fadeUpElements.forEach(el => {
+                // ヒーローセクション以外を監視
+                if (el !== heroContent) {
+                    observer.observe(el);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
